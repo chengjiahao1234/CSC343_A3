@@ -36,17 +36,17 @@ CREATE TABLE CityProperty (
     CHECK (walkability >= 0 and walkability <= 100)
 );
 
+-- The personal information of a certain host.
+CREATE TABLE HostInfo (
+    host_id INTEGER PRIMARY KEY,
+    email VARCHAR(30) NOT NULL
+);
+
 -- A row in this table indicates who is the owner of certain
 -- property.
 CREATE TABLE PropertyHost (
   property_id INTEGER PRIMARY KEY REFERENCES PropertyInfo,
   host_id INTEGER REFERENCES HostInfo NOT NULL  
-);
-
--- The personal information of a certain host.
-CREATE TABLE HostInfo (
-    host_id INTEGER PRIMARY KEY,
-    email VARCHAR(30) NOT NULL
 );
 
 -- The price of a property of a certain week.
@@ -76,7 +76,7 @@ CREATE TABLE Guest (
     name VARCHAR(50) NOT NULL,
     birthday DATE NOT NULL,
     address VARCHAR(50) NOT NULL
-);
+) ;
 
 -- A row in this table indicates that a valid renter ordered
 -- a property. num_of_renters is the total number of guests who
@@ -84,7 +84,7 @@ CREATE TABLE Guest (
 -- capacity of the property. The renter must be at least 18 years
 -- old on the first day of the rental. start_day is the first day
 -- of the rental.
-CREATE TABLE Order (
+CREATE TABLE PropertyOrder (
     order_id INTEGER PRIMARY KEY,
     guest_id INTEGER NOT NULL REFERENCES PaymentInfo,
     property_id INTEGER NOT NULL REFERENCES PropertyInfo,
@@ -97,10 +97,10 @@ CREATE TABLE Order (
     where date_part('year' age(start_day, birthday)) >= 18),
     check (guest_id NOT IN
     (select RentInfo.guest_id
-    from Order join RentInfo
-    where Order.order_id = RentInfo.order_id
-        and Order.start_day = start_day
-        and Order.order_id != order_id)),
+    from PropertyOrder join RentInfo
+    where PropertyOrder.order_id = RentInfo.order_id
+        and PropertyOrder.start_day = start_day
+        and PropertyOrder.order_id != order_id)),
     check (property_id IN
     (select property_id
     from PropertyInfo
@@ -108,17 +108,17 @@ CREATE TABLE Order (
 ) ;
 
 -- A row in this table indicates the time period of a
--- order counted week by week.
+-- PropertyOrder counted week by week.
 CREATE TABLE OrderInfo (
-    order_id INTEGER NOT NULL REFERENCES Order,
+    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
     week DATE NOT NULL,
     PRIMARY KEY (order_id, week)
-);
+) ;
 
 -- A row in this table indicates the guest who rent the 
--- property in this order.
+-- property in this PropertyOrder.
 CREATE TABLE RentInfo (
-    order_id INTEGER NOT NULL REFERENCES Order,
+    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
     guest_id INTEGER NOT NULL REFERENCES Guest,
     PRIMARY KEY (order_id, guest_id)
 ) ;
@@ -130,27 +130,27 @@ CREATE TABLE score AS SMALLINT
     DEFAULT NULL
     CHECK (VALUE >= 0 AND VALUE <= 5);
 
--- The guest who rent the property associated with this order
+-- The guest who rent the property associated with this PropertyOrder
 -- gave the rating to the property.
 CREATE TABLE PropertyRating (
-    order_id INTEGER NOT NULL REFERENCES Order,
+    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
     guest_id INTEGER NOT NULL REFERENCES RentInfo,
     property_id INTEGER NOT NULL REFERENCES PropertyInfo,
     rating score NOT NULL,
     PRIMARY KEY (order_id, guest_id)
 ) ;
 
--- The renter who rent the property associated with this order
+-- The renter who rent the property associated with this PropertyOrder
 -- gave the rating to the property's host.
 CREATE TABLE HostRating (
-    order_id INTEGER NOT NULL REFERENCES Order,
-    guest_id INTEGER NOT NULL REFERENCES Order,
+    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
+    guest_id INTEGER NOT NULL REFERENCES PropertyOrder,
     rating score NOT NULL,
     PRIMARY KEY (order_id, guest_id)
 ) ;
 
 -- The guest who gave the rating to the property associated 
--- with this order gave the comment to the property.
+-- with this PropertyOrder gave the comment to the property.
 CREATE TABLE Comments (
     order_id INTEGER NOT NULL REFERENCES PropertyRating,
     guest_id INTEGER NOT NULL REFERENCES PropertyRating,

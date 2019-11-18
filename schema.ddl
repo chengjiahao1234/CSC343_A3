@@ -94,13 +94,13 @@ CREATE TABLE PropertyOrder (
     check (guest_id IN
     (select guest_id
     from Guest
-    where date_part('year' age(start_day, birthday)) >= 18),
-    check (guest_id NOT IN
-    (select RentInfo.guest_id
-    from PropertyOrder join RentInfo
-    where PropertyOrder.order_id = RentInfo.order_id
-        and PropertyOrder.start_day = start_day
-        and PropertyOrder.order_id != order_id)),
+    where date_part('year', age(start_day, birthday)) >= 18)),
+    --check (guest_id NOT IN
+    --(select RentInfo.guest_id
+    --from PropertyOrder P1 join RentInfo
+    --where P1.order_id = RentInfo.order_id
+    --    and P1.start_day = start_day
+    --    and P1.order_id != order_id)),
     check (property_id IN
     (select property_id
     from PropertyInfo
@@ -126,7 +126,7 @@ CREATE TABLE RentInfo (
 -- To do with Ratings
 
 -- The possible values of a rating.
-CREATE TABLE score AS SMALLINT
+CREATE DOMAIN score AS SMALLINT
     DEFAULT NULL
     CHECK (VALUE >= 0 AND VALUE <= 5);
 

@@ -13,7 +13,7 @@ CREATE TABLE PropertyInfo (
     num_bath INTEGER NOT NULL,
     address VARCHAR(50) NOT NULL,
     capacity INTEGER NOT NULL,
-    CHECK (capacity <= num_bed)
+    CHECK (capacity >= num_bed)
 );
 
 -- The information of all water properties. propertyType
@@ -23,7 +23,8 @@ CREATE TABLE PropertyInfo (
 CREATE TABLE WaterProperty (
     property_id INTEGER PRIMARY KEY REFERENCES PropertyInfo,
     property_type VARCHAR(10) NOT NULL,
-    lifeguarding BOOLEAN NOT NULL
+    lifeguarding BOOLEAN NOT NULL,
+    CHECK (property_type IN ('beach', 'lake', 'pool'))
 );
 
 -- The information of all city properties. walkability
@@ -32,8 +33,9 @@ CREATE TABLE WaterProperty (
 CREATE TABLE CityProperty (
     property_id INTEGER PRIMARY KEY REFERENCES PropertyInfo,
     walkability INTEGER NOT NULL,
-    closest_transit VARCHAR(10) NOT NULL
-    CHECK (walkability >= 0 and walkability <= 100)
+    closest_transit VARCHAR(10) NOT NULL,
+    CHECK (walkability >= 0 and walkability <= 100),
+    CHECK (closest_transit IN ('bus', 'LRT', 'subway', 'none'))
 );
 
 -- The personal information of a certain host.
@@ -86,34 +88,37 @@ CREATE TABLE Guest (
 -- of the rental.
 CREATE TABLE PropertyOrder (
     order_id INTEGER PRIMARY KEY,
-    guest_id INTEGER NOT NULL REFERENCES PaymentInfo,
+    guest_id INTEGER NOT NULL REFERENCES Guest,
+    birthday DATE NOT NULL,
+    --check guest_id IN
+    --(select guest_id
+    --from Guest),
+    --where date_part('year', age(start_day, birthday)) >= 18)),
     property_id INTEGER NOT NULL REFERENCES PropertyInfo,
+    --check (property_id IN
+    --(select PropertyInfo.property_id
+    --from PropertyInfo
+    --where capacity >= num_of_renters)),
     start_day DATE NOT NULL,
+    num_of_weeks INTEGER NOT NULL,
     num_of_renters INTEGER NOT NULL,
-    cardNum INTEGER NOT NULL REFERENCES PaymentInfo,
-    check guest_id IN
-    (select Guest.guest_id
-    from Guest
-    where date_part('year', age(start_day, birthday)) >= 18),
+    cardNum INTEGER NOT NULL,
+    CHECK (num_of_renters >= 0)
     --check (guest_id NOT IN
     --(select RentInfo.guest_id
     --from PropertyOrder P1 join RentInfo
     --where P1.order_id = RentInfo.order_id
     --    and P1.start_day = start_day
     --    and P1.order_id != order_id)),
-    check property_id IN
-    (select PropertyInfo.property_id
-    from PropertyInfo
-    where capacity >= num_of_renters)
 ) ;
 
 -- A row in this table indicates the time period of a
 -- PropertyOrder counted week by week.
-CREATE TABLE OrderInfo (
-    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
-    week DATE NOT NULL,
-    PRIMARY KEY (order_id, week)
-) ;
+--CREATE TABLE OrderInfo (
+--    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
+--    week DATE NOT NULL,
+--    PRIMARY KEY (order_id, week)
+--) ;
 
 -- A row in this table indicates the guest who rent the 
 -- property in this PropertyOrder.
@@ -133,11 +138,11 @@ CREATE DOMAIN score AS SMALLINT
 -- The guest who rent the property associated with this PropertyOrder
 -- gave the rating to the property.
 CREATE TABLE PropertyRating (
-    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
-    guest_id INTEGER NOT NULL REFERENCES RentInfo,
-    property_id INTEGER NOT NULL REFERENCES PropertyInfo,
+    order_id INTEGER NOT NULL,
+    guest_id INTEGER NOT NULL,
     rating score NOT NULL,
-    PRIMARY KEY (order_id, guest_id)
+    PRIMARY KEY (order_id, guest_id),
+    Foreign KEY (order_id, guest_id) REFERENCES RentInfo
 ) ;
 
 -- The renter who rent the property associated with this PropertyOrder
@@ -152,8 +157,9 @@ CREATE TABLE HostRating (
 -- The guest who gave the rating to the property associated 
 -- with this PropertyOrder gave the comment to the property.
 CREATE TABLE Comments (
-    order_id INTEGER NOT NULL REFERENCES PropertyRating,
-    guest_id INTEGER NOT NULL REFERENCES PropertyRating,
+    order_id INTEGER NOT NULL,
+    guest_id INTEGER NOT NULL,
     comments VARCHAR(200) NOT NULL,
-    PRIMARY KEY (order_id, guest_id)
+    PRIMARY KEY (order_id, guest_id),
+    Foreign KEY (order_id, guest_id) REFERENCES PropertyRating
 ) ;

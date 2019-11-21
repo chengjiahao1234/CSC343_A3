@@ -21,9 +21,10 @@ CREATE TABLE PropertyInfo (
 -- property can be a pool, lake or beach. lifeguarding
 -- indicates whether lifeguards has ever been offered.
 CREATE TABLE WaterProperty (
-    property_id INTEGER PRIMARY KEY REFERENCES PropertyInfo,
+    property_id INTEGER REFERENCES PropertyInfo,
     property_type VARCHAR(10) NOT NULL,
     lifeguarding BOOLEAN NOT NULL,
+    PRIMARY KEY (property_id, property_type),
     CHECK (property_type IN ('beach', 'lake', 'pool'))
 );
 
@@ -55,7 +56,7 @@ CREATE TABLE PropertyHost (
 CREATE TABLE Price (
     property_id INTEGER REFERENCES PropertyInfo,
     week DATE NOT NULL,
-    price INTEGER NOT NULL,
+    price FLOAT NOT NULL,
     PRIMARY KEY (property_id, week)
 );
 

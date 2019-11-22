@@ -73,7 +73,7 @@ CREATE TABLE Price (
     week DATE NOT NULL,
     price FLOAT NOT NULL,
     PRIMARY KEY (property_id, week),
-    CHECK (EXTRACT(DOW FROM week) == 6)
+    CHECK (EXTRACT(DOW FROM week) = 6)
 );
 
 -- A row in this table indicates whether or not a luxury
@@ -86,7 +86,7 @@ CREATE TABLE Services (
     daily_cleaning BOOLEAN NOT NULL,
     daily_breakfast BOOLEAN NOT NULL,
     concierge BOOLEAN NOT NULL,
-    CHECK (hot_tub || sauna || laundry || daily_cleaning || daily_breakfast || concierge)
+    CHECK (hot_tub OR sauna OR laundry OR daily_cleaning OR daily_breakfast OR concierge)
 );
 
 -- A person who is registered as a guest of the this 

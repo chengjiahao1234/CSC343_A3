@@ -11,7 +11,7 @@ CREATE TABLE PropertyInfo (
     property_id INTEGER PRIMARY KEY,
     num_bed INTEGER NOT NULL,
     num_bath INTEGER NOT NULL,
-    address VARCHAR(50) NOT NULL,
+    address VARCHAR(50) NOT NULL UNIQUE,
     capacity INTEGER NOT NULL,
     CHECK (capacity >= num_bed)
 );

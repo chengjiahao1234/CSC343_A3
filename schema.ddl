@@ -121,7 +121,7 @@ CREATE TABLE PropertyOrder (
     num_of_guests INTEGER NOT NULL,
     cardNum INTEGER NOT NULL,
     CHECK (num_of_guests >= 0),
-    CHECK (EXTRACT(DOW FROM start_day) == 6)
+    CHECK (EXTRACT(DOW FROM start_day) = 6)
     --check (guest_id NOT IN
     --(select RentInfo.guest_id
     --from PropertyOrder P1 join RentInfo

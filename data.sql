@@ -1,9 +1,9 @@
 INSERT INTO PropertyInfo VALUES
-(101, 5, 5, '1 Spadina Ave', 5), -- both
-(102, 5, 5, '2 Spadina Ave', 6), -- water
-(103, 5, 4, '3 Spadina Ave', 7), -- city
-(104, 5, 4, '4 Spadina Ave', 8), -- city
-(105, 5, 3, '5 Spadina Ave', 10); -- neither
+(101, 11, 5, 5, '1 Spadina Ave', 5), -- both
+(102, 11, 5, 5, '2 Spadina Ave', 6), -- water
+(103, 12, 5, 4, '3 Spadina Ave', 7), -- city
+(104, 12, 5, 4, '4 Spadina Ave', 8), -- city
+(105, 13, 5, 3, '5 Spadina Ave', 10); -- neither
 
 INSERT INTO WaterProperty VALUES
 (101, 'beach', true),
@@ -21,12 +21,12 @@ INSERT INTO HostInfo VALUES
 (12, 'host2@gmail.com'),
 (13, 'host1@gmali.com');
 
-INSERT INTO PropertyHost VALUES
-(101, 11),
-(102, 11),
-(103, 12),
-(104, 12),
-(105, 13);
+-- INSERT INTO PropertyHost VALUES
+-- (101, 11),
+-- (102, 11),
+-- (103, 12),
+-- (104, 12),
+-- (105, 13);
 
 INSERT INTO Price VALUES
 (101, '2019-11-02', 1000),

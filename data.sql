@@ -1,6 +1,6 @@
 INSERT INTO PropertyInfo VALUES
 (101, 5, 5, '1 Spadina Ave', 5),
-(102, 5, 5, '2 Spadina Ave', 6).
+(102, 5, 5, '2 Spadina Ave', 6),
 (103, 5, 4, '3 Spadina Ave', 7),
 (104, 5, 4, '4 Spadina Ave', 8),
 (105, 5, 3, '5 Spadina Ave', 10);
@@ -117,7 +117,7 @@ INSERT INTO HostRating VALUES
 (10002, 1006, 4),
 (10005, 1014, 3),
 (10006, 1015, 4),
-(10007, 1016, 5),
+(10007, 1016, 5);
 
 INSERT INTO Comments VALUES
 (10001, 1001, 'Excellent!'),

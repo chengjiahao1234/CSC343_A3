@@ -90,7 +90,6 @@ CREATE TABLE Guest (
 CREATE TABLE PropertyOrder (
     order_id INTEGER PRIMARY KEY,
     guest_id INTEGER NOT NULL REFERENCES Guest,
-    birthday DATE NOT NULL,
     --check guest_id IN
     --(select guest_id
     --from Guest),
@@ -150,7 +149,7 @@ CREATE TABLE PropertyRating (
 -- gave the rating to the property's host.
 CREATE TABLE HostRating (
     order_id INTEGER NOT NULL REFERENCES PropertyOrder,
-    guest_id INTEGER NOT NULL REFERENCES PropertyOrder,
+    guest_id INTEGER NOT NULL,
     rating score NOT NULL,
     PRIMARY KEY (order_id, guest_id)
 ) ;

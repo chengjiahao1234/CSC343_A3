@@ -26,18 +26,24 @@ DROP VIEW IF EXISTS Answer CASCADE;
 --SELECT property_id, (start_day + (interval '7' day * generate_series(0, num_of_weeks - 1))) AS weeks
 --FROM PropertyOrder;
 
+-- The highest price and lowest price ever charged of a week for properties which
+-- ever be rented.
 CREATE VIEW HighestAndLowest AS
 	SELECT Price.property_id, max(price) AS highest, min(price) AS lowest, max(price) - min(price) AS range
 	FROM Price 
-		LEFT JOIN PropertyOrder ON PropertyOrder.property_id = Price.property_id
+		JOIN PropertyOrder ON PropertyOrder.property_id = Price.property_id
 			AND PropertyOrder.start_day <= Price.week
 			AND PropertyOrder.start_day + 7 * (PropertyOrder.num_of_weeks - 1) >= Price.week
 	GROUP BY Price.property_id;
-	
+
+-- The highest range of all properties from HighestAndLowest
 CREATE VIEW HighestRange AS
 SELECT max(range) as max_range
 FROM HighestAndLowest;
-	
+
+-- The highest price, lowest price, the range, and a column 
+-- indicating whether it's the highest range for properties
+-- which ever be rented.
 CREATE VIEW Answer AS
 SELECT property_id, highest, lowest, range, 
 CASE WHEN range = max_range

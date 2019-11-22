@@ -2,12 +2,12 @@ SET SEARCH_PATH TO vacationschema, public;
 DROP TABLE IF EXISTS q1 cascade;
 
 CREATE TABLE q1(
-    NumHotTub INTEGER,
-    NumSauna INTEGER,
-    NumConcierge INTEGER,
-    NumBreakfast INTEGER,
-    NumLaundry INTEGER,
-    NumCleaning INTEGER
+    num_hot_tub INTEGER,
+    num_sauna INTEGER,
+    num_concierge INTEGER,
+    num_breakfast INTEGER,
+    num_laundry INTEGER,
+    num_cleaning INTEGER
 );
 
 DROP VIEW IF EXISTS NumHotTub CASCADE;

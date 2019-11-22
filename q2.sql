@@ -2,9 +2,9 @@ SET SEARCH_PATH TO vacationschema, public;
 DROP TABLE IF EXISTS q2 cascade;
 
 CREATE TABLE q2(
-    Capacity VARCHAR(10),
-    NumProperty INTEGER,
-    AverageRating FLOAT
+    capacity VARCHAR(10),
+    num_property INTEGER,
+    average_rating FLOAT
 );
 
 DROP VIEW IF EXISTS AtCapacityRents CASCADE;

@@ -2,7 +2,7 @@
 
 -- You must not change the next 2 lines or the table definition.
 SET SEARCH_PATH TO vacationschema, PUBLIC;
-DROP TABLE if EXISTS q4 CASCADE;
+DROP TABLE IF EXISTS q4 CASCADE;
 
 CREATE TABLE q4(
     type VARCHAR(10),

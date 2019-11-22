@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS q3 cascade;
 CREATE TABLE q3(
     host_id INTEGER,
     email VARCHAR(30),
-    AverageRating SCORE,
-    MostExpensivePrice FLOAT
+    average_rating SCORE,
+    most_expensive_price FLOAT
 );
 
 DROP VIEW IF EXISTS HostToRatings CASCADE;

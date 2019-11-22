@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS q2 cascade;
 CREATE TABLE q2(
     Capacity VARCHAR(10),
     NumProperty INTEGER,
-    AverageRating SCORE
+    AverageRating FLOAT
 );
 
 DROP VIEW IF EXISTS AtCapacityRents CASCADE;
@@ -17,12 +17,12 @@ CREATE VIEW AtCapacityRents AS
 	SELECT order_id
 	FROM PropertyOrder JOIN PropertyInfo 
 		ON PropertyOrder.property_id = PropertyInfo.property_id
-	WHERE num_of_renters >= capacity;
+	WHERE num_of_guests + 1 >= capacity;
 
 --This table reports the average rating of all at-capacity rentals.
 CREATE VIEW AtCapacityRatings AS 
-	SELECT 'At' AS Capacity, count(order_id) AS NumProperty, avg(rating) AS AverageRating
-	FROM AtCapacityRents JOIN PropertyRating 
+	SELECT 'At' AS Capacity, count(DISTINCT AtCapacityRents.order_id) AS NumProperty, avg(rating) AS AverageRating
+	FROM AtCapacityRents LEFT JOIN PropertyRating 
 		ON AtCapacityRents.order_id = PropertyRating.order_id;
 
 --A row in this table indicates an below-capacity rental.
@@ -30,12 +30,12 @@ CREATE VIEW BelowCapacityRents AS
 	SELECT order_id
 	FROM PropertyOrder JOIN PropertyInfo 
 		ON PropertyOrder.property_id = PropertyInfo.property_id
-	WHERE num_of_renters < capacity;
+	WHERE num_of_guests + 1 < capacity;
 
 --This table reports the average rating of all below-capacity rentals.
 CREATE VIEW BelowCapacityRatings AS 
-	SELECT 'Below' AS Capacity, count(order_id) AS NumProperty, avg(rating) AS AverageRating
-	FROM BelowCapacityRents JOIN PropertyRating 
+	SELECT 'Below' AS Capacity, count(DISTINCT BelowCapacityRents.order_id) AS NumProperty, avg(rating) AS AverageRating
+	FROM BelowCapacityRents LEFT JOIN PropertyRating 
 		ON BelowCapacityRents.order_id = PropertyRating.order_id;
 
 INSERT INTO q2

@@ -101,9 +101,9 @@ CREATE TABLE PropertyOrder (
     --where capacity >= num_of_renters)),
     start_day DATE NOT NULL,
     num_of_weeks INTEGER NOT NULL,
-    num_of_renters INTEGER NOT NULL,
+    num_of_guests INTEGER NOT NULL,
     cardNum INTEGER NOT NULL,
-    CHECK (num_of_renters >= 0)
+    CHECK (num_of_guests >= 0)
     --check (guest_id NOT IN
     --(select RentInfo.guest_id
     --from PropertyOrder P1 join RentInfo

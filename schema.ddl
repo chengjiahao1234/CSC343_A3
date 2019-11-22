@@ -1,6 +1,26 @@
+-- Q: What constraints from the domain could not be enforced,
+-- if any?
+-- A: The following three constraints from the domain could not 
+-- be enforced: 1. The renter has to be at least 18 years old 
+-- on the first day of the rental. 2. The person cannot be
+-- registered for only parts of it. 3. The number of guests must
+-- not exceed the sleeping capacity of the property. Since we 
+-- can't use subquery inside the check block, we couldn't enforce 
+-- this constraints without using assertions or triggers.
+--
+-- Q: What constraints that could have been enforced were not
+-- enforced, if any? Why not?
+-- A: No, we don't have any constraint that we don't decide to
+-- be enforced.
 DROP SCHEMA IF EXISTS vacationschema CASCADE;
 CREATE SCHEMA vacationschema;
 SET search_path TO vacationschema;
+
+-- The personal information of a certain host.
+CREATE TABLE HostInfo (
+    host_id INTEGER PRIMARY KEY,
+    email VARCHAR(30) NOT NULL
+);
 
 -- The info of a property. numBed is the number of
 -- bedrooms it has. numBath is the number of bathrooms
@@ -9,6 +29,7 @@ SET search_path TO vacationschema;
 -- can include.
 CREATE TABLE PropertyInfo (
     property_id INTEGER PRIMARY KEY,
+    host_id INTEGER NOT NULL REFERENCES HostInfo
     num_bed INTEGER NOT NULL,
     num_bath INTEGER NOT NULL,
     address VARCHAR(50) NOT NULL UNIQUE,
@@ -39,25 +60,20 @@ CREATE TABLE CityProperty (
     CHECK (closest_transit IN ('bus', 'LRT', 'subway', 'none'))
 );
 
--- The personal information of a certain host.
-CREATE TABLE HostInfo (
-    host_id INTEGER PRIMARY KEY,
-    email VARCHAR(30) NOT NULL
-);
-
--- A row in this table indicates who is the owner of certain
--- property.
-CREATE TABLE PropertyHost (
-  property_id INTEGER PRIMARY KEY REFERENCES PropertyInfo,
-  host_id INTEGER REFERENCES HostInfo NOT NULL  
-);
+-- -- A row in this table indicates who is the owner of certain
+-- -- property.
+-- CREATE TABLE PropertyHost (
+--   property_id INTEGER PRIMARY KEY REFERENCES PropertyInfo,
+--   host_id INTEGER REFERENCES HostInfo NOT NULL  
+-- );
 
 -- The price of a property of a certain week.
 CREATE TABLE Price (
     property_id INTEGER REFERENCES PropertyInfo,
     week DATE NOT NULL,
     price FLOAT NOT NULL,
-    PRIMARY KEY (property_id, week)
+    PRIMARY KEY (property_id, week),
+    CHECK (EXTRACT(DOW FROM week) == 6)
 );
 
 -- A row in this table indicates whether or not a luxury
@@ -69,7 +85,8 @@ CREATE TABLE Services (
     laundry BOOLEAN NOT NULL,
     daily_cleaning BOOLEAN NOT NULL,
     daily_breakfast BOOLEAN NOT NULL,
-    concierge BOOLEAN NOT NULL
+    concierge BOOLEAN NOT NULL,
+    CHECK (hot_tub || sauna || laundry || daily_cleaning || daily_breakfast || concierge)
 );
 
 -- A person who is registered as a guest of the this 
@@ -103,7 +120,8 @@ CREATE TABLE PropertyOrder (
     num_of_weeks INTEGER NOT NULL,
     num_of_guests INTEGER NOT NULL,
     cardNum INTEGER NOT NULL,
-    CHECK (num_of_guests >= 0)
+    CHECK (num_of_guests >= 0),
+    CHECK (EXTRACT(DOW FROM start_day) == 6)
     --check (guest_id NOT IN
     --(select RentInfo.guest_id
     --from PropertyOrder P1 join RentInfo
@@ -111,14 +129,6 @@ CREATE TABLE PropertyOrder (
     --    and P1.start_day = start_day
     --    and P1.order_id != order_id)),
 ) ;
-
--- A row in this table indicates the time period of a
--- PropertyOrder counted week by week.
---CREATE TABLE OrderInfo (
---    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
---    week DATE NOT NULL,
---    PRIMARY KEY (order_id, week)
---) ;
 
 -- A row in this table indicates the guest who rent the 
 -- property in this PropertyOrder.

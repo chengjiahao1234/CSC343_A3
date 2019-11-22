@@ -15,12 +15,12 @@ DROP VIEW IF EXISTS FinalResult CASCADE;
 
 --This table associates the information of a host to his average rating.
 CREATE VIEW HostToRatings AS 
-	SELECT PropertyHost.host_id, email, avg(rating) AS AverageRating
+	SELECT PropertyInfo.host_id, email, avg(rating) AS AverageRating
 	FROM HostRating 
 		JOIN PropertyOrder ON HostRating.order_id = PropertyOrder.order_id
-		JOIN PropertyHost ON PropertyOrder.property_id = PropertyHost.property_id
-		JOIN HostInfo ON PropertyHost.host_id = HostInfo.host_id
-	GROUP BY PropertyHost.host_id, email;
+		JOIN PropertyHost ON PropertyOrder.property_id = PropertyInfo.property_id
+		JOIN HostInfo ON PropertyInfo.host_id = HostInfo.host_id
+	GROUP BY PropertyInfo.host_id, email;
 
 --This table finds the host with highest average rating.
 CREATE VIEW HighestRatingHost AS
@@ -35,7 +35,7 @@ CREATE VIEW ExpensiveBookingWeek AS
 	FROM Price 
 		JOIN PropertyOrder ON PropertyOrder.property_id = Price.property_id
 			AND PropertyOrder.start_day = Price.week
-		JOIN PropertyHost ON PropertyOrder.property_id = PropertyHost.property_id
+		JOIN PropertyHost ON PropertyOrder.property_id = PropertyInfo.property_id
 	GROUP BY host_id;
 
 --This table associates information of the host with highest average rating to his most 

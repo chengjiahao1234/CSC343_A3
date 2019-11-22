@@ -8,7 +8,8 @@ INSERT INTO PropertyInfo VALUES
 (102, 11, 5, 5, '2 Spadina Ave', 6), -- water
 (103, 12, 5, 4, '3 Spadina Ave', 7), -- city
 (104, 12, 5, 4, '4 Spadina Ave', 8), -- city
-(105, 13, 5, 3, '5 Spadina Ave', 10); -- neither
+(105, 13, 5, 3, '5 Spadina Ave', 10), -- neither
+(106, 13, 5, 3, '6 Spadina Ave', 10); -- neither
 
 INSERT INTO WaterProperty VALUES
 (101, 'beach', true),
@@ -34,6 +35,7 @@ INSERT INTO Price VALUES
 (103, '2019-11-02', 700),
 (104, '2019-11-02', 500),
 (105, '2019-11-02', 100),
+(106, '2019-11-02'), 100)
 (101, '2019-11-09', 1500),
 (102, '2019-11-09', 700),
 (103, '2019-11-09', 600),
@@ -50,7 +52,8 @@ INSERT INTO Services VALUES
 (102, true, true, true, true, true, true),
 (103, true, false, true, true, true, false),
 (104, true, true, true, false, false, false),
-(105, true, false, false, false, false, false);
+(105, true, false, false, false, false, false),
+(106, true, false, false, false, false, false);
 
 INSERT INTO Guest VALUES
 (1001, 'guest1', '1998-01-01', '1 St.George St'),

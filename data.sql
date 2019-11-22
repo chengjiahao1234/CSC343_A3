@@ -1,3 +1,8 @@
+INSERT INTO HostInfo VALUES
+(11, 'host1@gmail.com'),
+(12, 'host2@gmail.com'),
+(13, 'host1@gmali.com');
+
 INSERT INTO PropertyInfo VALUES
 (101, 11, 5, 5, '1 Spadina Ave', 5), -- both
 (102, 11, 5, 5, '2 Spadina Ave', 6), -- water
@@ -15,11 +20,6 @@ INSERT INTO CityProperty VALUES
 (101, 10, 'LRT'),
 (103, 50, 'bus'),
 (104, 100, 'subway');
-
-INSERT INTO HostInfo VALUES
-(11, 'host1@gmail.com'),
-(12, 'host2@gmail.com'),
-(13, 'host1@gmali.com');
 
 -- INSERT INTO PropertyHost VALUES
 -- (101, 11),

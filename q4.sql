@@ -66,7 +66,7 @@ CREATE VIEW BothAnswer AS
 SELECT 'Both' AS type, 
 CASE WHEN count(B.property_id) = 0
 THEN 0
-ELSE sum(num_of_renters)/count(B.property_id) 
+ELSE sum(num_of_guests)/count(B.property_id) 
 END AS avg_of_guests
 FROM BothCityWater B LEFT JOIN PropertyOrder O ON B.property_id = O.property_id;
 
@@ -75,7 +75,7 @@ CREATE VIEW CityAnswer AS
 SELECT 'City' AS type, 
 CASE WHEN count(C.property_id) = 0
 THEN 0
-ELSE sum(num_of_renters)/count(C.property_id) 
+ELSE sum(num_of_guests)/count(C.property_id) 
 END AS avg_of_guests
 FROM CityP C LEFT JOIN PropertyOrder O ON C.property_id = O.property_id;
 
@@ -84,7 +84,7 @@ CREATE VIEW WaterAnswer AS
 SELECT 'Water' AS type, 
 CASE WHEN count(W.property_id) = 0
 THEN 0
-ELSE sum(num_of_renters)/count(W.property_id) 
+ELSE sum(num_of_guests)/count(W.property_id) 
 END AS avg_of_guests
 FROM WaterP W LEFT JOIN PropertyOrder O ON W.property_id = O.property_id;
 
@@ -93,7 +93,7 @@ CREATE VIEW NoneAnswer AS
 SELECT 'Neither' AS type, 
 CASE WHEN count(N.property_id) = 0
 THEN 0
-ELSE sum(num_of_renters)/count(N.property_id) 
+ELSE sum(num_of_guests)/count(N.property_id) 
 END AS avg_of_guests
 FROM NoneType N LEFT JOIN PropertyOrder O ON N.property_id = O.property_id;
 

@@ -120,6 +120,7 @@ CREATE TABLE PropertyOrder (
     num_of_weeks INTEGER NOT NULL,
     num_of_guests INTEGER NOT NULL,
     cardNum INTEGER NOT NULL,
+    CHECK (num_of_weeks >= 1),
     CHECK (num_of_guests >= 0),
     CHECK (EXTRACT(DOW FROM start_day) = 6)
     --check (guest_id NOT IN

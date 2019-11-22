@@ -34,7 +34,8 @@ CREATE VIEW ExpensiveBookingWeek AS
 	SELECT host_id, max(price) as price
 	FROM Price 
 		JOIN PropertyOrder ON PropertyOrder.property_id = Price.property_id
-			AND PropertyOrder.start_day = Price.week
+			AND PropertyOrder.start_day <= Price.week
+			AND PropertyOrder.start_day + 7 * (PropertyOrder.num_of_weeks - 1) >= Price.week
 		JOIN PropertyInfo ON PropertyOrder.property_id = PropertyInfo.property_id
 	GROUP BY host_id;
 

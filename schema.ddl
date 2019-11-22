@@ -29,7 +29,7 @@ CREATE TABLE HostInfo (
 -- can include.
 CREATE TABLE PropertyInfo (
     property_id INTEGER PRIMARY KEY,
-    host_id INTEGER NOT NULL REFERENCES HostInfo
+    host_id INTEGER NOT NULL REFERENCES HostInfo,
     num_bed INTEGER NOT NULL,
     num_bath INTEGER NOT NULL,
     address VARCHAR(50) NOT NULL UNIQUE,

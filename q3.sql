@@ -41,7 +41,8 @@ CREATE VIEW ExpensiveBookingWeek AS
 --This table associates information of the host with highest average rating to his most 
 --expensive booking week as a final result.
 CREATE VIEW FinalResult AS
-	SELECT *
+	SELECT HighestRatingHost.host_id, HighestRatingHost.email, HighestRatingHost.AverageRating,
+		ExpensiveBookingWeek.price
 	FROM HighestRatingHost join ExpensiveBookingWeek 
 		ON HighestRatingHost.host_id = ExpensiveBookingWeek.host_id;
 

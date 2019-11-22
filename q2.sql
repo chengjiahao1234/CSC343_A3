@@ -21,7 +21,7 @@ CREATE VIEW AtCapacityRents AS
 
 --This table reports the average rating of all at-capacity rentals.
 CREATE VIEW AtCapacityRatings AS 
-	SELECT 'At' AS Capacity, count(property_id) AS NumProperty, avg(rating) AS AverageRating
+	SELECT 'At' AS Capacity, count(order_id) AS NumProperty, avg(rating) AS AverageRating
 	FROM AtCapacityRents JOIN PropertyRating 
 		ON AtCapacityRents.order_id = PropertyRating.order_id;
 
@@ -34,7 +34,7 @@ CREATE VIEW BelowCapacityRents AS
 
 --This table reports the average rating of all below-capacity rentals.
 CREATE VIEW BelowCapacityRatings AS 
-	SELECT 'Below' AS Capacity, count(property_id) AS NumProperty, avg(rating) AS AverageRating
+	SELECT 'Below' AS Capacity, count(order_id) AS NumProperty, avg(rating) AS AverageRating
 	FROM BelowCapacityRents JOIN PropertyRating 
 		ON BelowCapacityRents.order_id = PropertyRating.order_id;
 

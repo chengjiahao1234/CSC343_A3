@@ -1,5 +1,5 @@
-SET SEARCH_PATH TO vacationschema, public;
-DROP TABLE IF EXISTS q1 cascade;
+SET SEARCH_PATH TO vacationschema, PUBLIC;
+DROP TABLE IF EXISTS q1 CASCADE;
 
 CREATE TABLE q1(
     num_hot_tub INTEGER,

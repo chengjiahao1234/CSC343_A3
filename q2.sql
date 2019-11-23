@@ -1,5 +1,5 @@
-SET SEARCH_PATH TO vacationschema, public;
-DROP TABLE IF EXISTS q2 cascade;
+SET SEARCH_PATH TO vacationschema, PUBLIC;
+DROP TABLE IF EXISTS q2 CASCADE;
 
 CREATE TABLE q2(
     capacity VARCHAR(10),
@@ -17,7 +17,7 @@ CREATE VIEW AtCapacityRents AS
 	SELECT order_id
 	FROM PropertyOrder JOIN PropertyInfo 
 		ON PropertyOrder.property_id = PropertyInfo.property_id
-	WHERE num_of_guests + 1 >= capacity;
+	WHERE num_of_guests + 1 = capacity;
 
 --This table reports the average rating of all at-capacity rentals.
 CREATE VIEW AtCapacityRatings AS 

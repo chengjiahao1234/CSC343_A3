@@ -1,5 +1,5 @@
-SET SEARCH_PATH TO vacationschema, public;
-DROP TABLE IF EXISTS q3 cascade;
+SET SEARCH_PATH TO vacationschema, PUBLIC;
+DROP TABLE IF EXISTS q3 CASCADE;
 
 CREATE TABLE q3(
     host_id INTEGER,
@@ -33,7 +33,7 @@ CREATE VIEW HighestRatingHost AS
 --A row in this table indicates the price of the most expensive booking week 
 --ever recorded of a every host.
 CREATE VIEW ExpensiveBookingWeek AS
-	SELECT host_id, max(price) as price
+	SELECT host_id, max(price) AS price
 	FROM Price 
 		JOIN PropertyOrder ON PropertyOrder.property_id = Price.property_id
 			AND PropertyOrder.start_day <= Price.week
@@ -49,7 +49,7 @@ CREATE VIEW FinalResult AS
 	SELECT HighestRatingHost.host_id, HighestRatingHost.email, 
 		HighestRatingHost.AverageRating,
 		ExpensiveBookingWeek.price
-	FROM HighestRatingHost join ExpensiveBookingWeek 
+	FROM HighestRatingHost JOIN ExpensiveBookingWeek 
 		ON HighestRatingHost.host_id = ExpensiveBookingWeek.host_id;
 
 -- Your query that answers the question goes below the "insert into" line:

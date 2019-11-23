@@ -86,7 +86,8 @@ CREATE TABLE Services (
     daily_cleaning BOOLEAN NOT NULL,
     daily_breakfast BOOLEAN NOT NULL,
     concierge BOOLEAN NOT NULL,
-    CHECK (hot_tub OR sauna OR laundry OR daily_cleaning OR daily_breakfast OR concierge)
+    CHECK (hot_tub OR sauna OR laundry OR daily_cleaning 
+	OR daily_breakfast OR concierge)
 );
 
 -- A person who is registered as a guest of the this 

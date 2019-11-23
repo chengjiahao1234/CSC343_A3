@@ -55,4 +55,5 @@ CREATE VIEW NumConcierge AS
 
 INSERT INTO q1
 	(SELECT *
-		FROM NumHotTub, NumSauna, NumConcierge, NumBreakfast, NumLaundry, NumCleaning);
+		FROM NumHotTub, NumSauna, NumConcierge, 
+		NumBreakfast, NumLaundry, NumCleaning);

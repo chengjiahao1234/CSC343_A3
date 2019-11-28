@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS q4 CASCADE;
 
 CREATE TABLE q4(
     type VARCHAR(10),
-    avg_of_guests INTEGER
+    avg_of_guests FLOAT
 );
 
 -- Do this for each of the views that define your intermediate steps.  
@@ -66,7 +66,7 @@ CREATE VIEW BothAnswer AS
 SELECT 'Both' AS type, 
 CASE WHEN count(B.property_id) = 0
 THEN 0
-ELSE sum(num_of_guests)/count(B.property_id) 
+ELSE CAST (sum(num_of_guests) AS FLOAT)/count(B.property_id) 
 END AS avg_of_guests
 FROM BothCityWater B LEFT JOIN PropertyOrder O ON B.property_id = O.property_id;
 
@@ -75,7 +75,7 @@ CREATE VIEW CityAnswer AS
 SELECT 'City' AS type, 
 CASE WHEN count(C.property_id) = 0
 THEN 0
-ELSE sum(num_of_guests)/count(C.property_id) 
+ELSE CAST (sum(num_of_guests) AS FLOAT)/count(C.property_id) 
 END AS avg_of_guests
 FROM CityP C LEFT JOIN PropertyOrder O ON C.property_id = O.property_id;
 
@@ -84,7 +84,7 @@ CREATE VIEW WaterAnswer AS
 SELECT 'Water' AS type, 
 CASE WHEN count(W.property_id) = 0
 THEN 0
-ELSE sum(num_of_guests)/count(W.property_id) 
+ELSE CAST (sum(num_of_guests) AS FLOAT)/count(W.property_id) 
 END AS avg_of_guests
 FROM WaterP W LEFT JOIN PropertyOrder O ON W.property_id = O.property_id;
 
@@ -93,8 +93,10 @@ CREATE VIEW NoneAnswer AS
 SELECT 'Neither' AS type, 
 CASE WHEN count(N.property_id) = 0
 THEN 0
-ELSE sum(num_of_guests)/count(N.property_id) 
+ELSE CAST (sum(num_of_guests) AS FLOAT)/count(N.property_id) 
 END AS avg_of_guests
+--sum(num_of_guests) AS total,
+--count(N.property_id) AS num_of_property
 FROM NoneType N LEFT JOIN PropertyOrder O ON N.property_id = O.property_id;
 
 -- The average number of extra guests for each type.

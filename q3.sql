@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS q3 CASCADE;
 CREATE TABLE q3(
     host_id INTEGER,
     email VARCHAR(30),
-    average_rating SCORE,
+    average_rating FLOAT,
     most_expensive_price FLOAT
 );
 

@@ -120,7 +120,7 @@ CREATE TABLE PropertyOrder (
     start_day DATE NOT NULL,
     num_of_weeks INTEGER NOT NULL,
     num_of_guests INTEGER NOT NULL,
-    cardNum INTEGER NOT NULL,
+    cardNum VARCHAR(16) NOT NULL,
     CHECK (num_of_weeks >= 1),
     CHECK (num_of_guests >= 0),
     CHECK (EXTRACT(DOW FROM start_day) = 6)

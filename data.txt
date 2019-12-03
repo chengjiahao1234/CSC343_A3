@@ -1,0 +1,80 @@
+Note: 
+This data is described in a way the is not intended to suggest what your database design should be!
+
+
+
+=== Properties ===
+
+There are 6 properties:
+
+Property 1 is a 3-bedroom, 1-bathroom that sleeps 6.  It's address is 'Tatooine', and its luxuries are: hot tub, daily cleaning.
+
+Property 2 is a 1-bedroom, 1-bathroom that sleeps 2.  It's address is 'Alderaan' and its luxuries are: hot tub, sauna, and daily cleaning.  This is a water property, with water type 'lake' and does not offer lifeguards.
+
+Property 3 is a 2-bedroom, 1-bathroom that sleeps 3.  It's address is 'Corellia' and its luxuries are: daily breakfast delivery and concierge service.  This is a city property, with walkability score 20 and 'bus' is the nearest transit.
+
+Property 4 is a 2-bedroom, 1-bathroom that sleeps 2.  It's address is 'Verona' and it has just one luxury: laundry service.
+
+Property 5 is a 2-bedroom, 2-bathroom that sleeps 4.  It's address is 'Florence' and it has just a hot tub.
+
+Property 6 is a 1-bedroom, 1-bathroom that sleeps 2.  It has many luxuries: hot tub, sauna, laundry service, daily cleaning, and concierge service.
+
+
+
+=== Hosts ===
+
+There are 3 hosts:
+
+'luke@gmail.com' is host for properties 1 and 6.
+
+'leia@gmail.com' is host for properties 2 and 4.
+
+'han@gmail.com' is host for properties 3 and 5.
+
+
+
+=== Reservations ===
+
+There have been 5 reservations:
+
+A reservation for property 2 for 1 week starting 2019-01-05.  The price was $580.  The renter is 'Darth Vader'.  His address is 'Death Star' and date of birth is 1985-12-06.  He reserved using credit card 3466704824219330.
+The extra guests were:
+   'Leia, Princess'
+Property ratings were:
+   'Leia, Princess' 5 stars
+   'Darth Vader': 2 stars
+The host rating (given by the renter) was 2 stars
+'Darth Vader' left this comment: 'Looks like she hides rebel scum here.'
+
+A reservation for property 3 for 2 weeks starting 2019-01-12.  The price was $750 in each of these weeks.  The renter is 'Leia, Princess'.  Her address is 'Alderaan' and date of birth is 2001-10-05.  She reserved using credit card 6011253896008199.
+The extra guests were:
+   'Romeo Montague' and 'Juliet Capulet' (Her address is 'Verona' and date of birth is 1991-07-24.)
+Property ratings were:
+   'Romeo Montague': 5 stars
+   'Juliet Capulet': 5 stars
+   'Leia, Princess': 1 star
+The host rating (given by the renter) was 5 stars
+'Leia, Princess' left this comment: 'A bit scruffy, could do with more regular housekeeping'
+
+A reservation for property 2 for 1 week starting 2019-01-12.  The price was $600.  The renter is 'Romeo Montague'.  His address is 'Verona' and date of birth is 1988-05-11.  He reserved using credit card 5446447451075463.
+The extra guests were:
+   'Juliet Capulet'
+Property ratings were:
+   'Juliet Capulet': 5 stars
+The host rating (given by the renter) was 3 stars
+
+A reservation for property 5 for 1 week starting 2019-01-05.  The price was $1000.  The renter is 'Mercutio'.  His address is 'Verona' and date of birth is 1988-03-03.  He reserved using credit card 4666153163329984.
+The extra guests were:
+   'Romeo Montague' and 'Darth Vader'
+Property ratings were:
+   'Mercutio': 1 star
+   'Romeo Montague': 1 star
+The host rating (given by the renter) was 4 stars
+
+A reservation for property 5 for 1 week starting 2019-01-12 .  The price was $1220.  The renter is 'Chewbacca'.  His address is 'Kashyyyk' and date of birth is 1998-09-15.  He reserved using credit card 6011624297465933.
+The extra guests were:
+   'Leia, Princess'
+Property ratings were:
+   'Chewbacca': 3 stars
+The host rating (given by the renter) was 4 stars
+'Chewbacca' left the comment: 'Fantastic, arggg'

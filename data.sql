@@ -4,12 +4,12 @@ INSERT INTO HostInfo VALUES
 (103, 'han@gmail.com');
 
 INSERT INTO PropertyInfo VALUES
-(1, 101, 3, 1, 'Tatooine', 6), 
-(2, 102, 1, 1, 'Alderaan', 2), 
-(3, 103, 2, 1, 'Corellia', 3), 
-(4, 102, 2, 1, 'Verona', 2), 
-(5, 103, 2, 2, 'Florence', 4),
-(6, 101, 1, 1, 'Toronto', 2); 
+(1, 101, 3, 1, 'Tatooine', 6, true, false, false, true, false, false), 
+(2, 102, 1, 1, 'Alderaan', 2, true, true, false, true, false, false),
+(3, 103, 2, 1, 'Corellia', 3, false, false, false, false, true, true), 
+(4, 102, 2, 1, 'Verona', 2, false, false, true, false, false, false),
+(5, 103, 2, 2, 'Florence', 4, true, false, false, false, false, false),
+(6, 101, 1, 1, 'Toronto', 2, true, true, true, true, false, true); 
 
 INSERT INTO WaterProperty VALUES
 (2, 'lake', false);
@@ -31,14 +31,6 @@ INSERT INTO Price VALUES
 (2, '2019-01-12', 600),
 (5, '2019-01-12', 1220),
 (5, '2019-01-05', 1000);
-
-INSERT INTO Services VALUES
-(1, true, false, false, true, false, false),
-(2, true, true, false, true, false, false),
-(3, false, false, false, false, true, true),
-(4, false, false, true, false, false, false),
-(5, true, false, false, false, false, false),
-(6, true, true, true, true, false, true);
 
 INSERT INTO Guest VALUES
 (1001, 'Darth Vader', '1985-12-06', 'Death Star'),
@@ -81,11 +73,11 @@ INSERT INTO PropertyRating VALUES
 (10005, 1006, 3);
 
 INSERT INTO HostRating VALUES
-(10001, 1001, 2),
-(10002, 1002, 5),
-(10003, 1003, 3),
-(10004, 1005, 4),
-(10005, 1006, 4);
+(10001, 2),
+(10002, 5),
+(10003, 3),
+(10004, 4),
+(10005, 4);
 
 INSERT INTO Comments VALUES
 (10001, 1001, 'Looks like she hides rebel scum here.'),

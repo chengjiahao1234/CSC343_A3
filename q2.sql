@@ -1,11 +1,11 @@
 SET SEARCH_PATH TO vacationschema, PUBLIC;
-DROP TABLE IF EXISTS q2 CASCADE;
+--DROP TABLE IF EXISTS q2 CASCADE;
 
-CREATE TABLE q2(
-    capacity VARCHAR(10),
-    num_property INTEGER,
-    average_rating FLOAT
-);
+--CREATE TABLE q2(
+--    capacity VARCHAR(10),
+--    num_property INTEGER,
+--    average_rating FLOAT
+--);
 
 DROP VIEW IF EXISTS AtCapacityRents CASCADE;
 DROP VIEW IF EXISTS AtCapacityRatings CASCADE;
@@ -42,7 +42,7 @@ CREATE VIEW BelowCapacityRatings AS
 	FROM BelowCapacityRents LEFT JOIN PropertyRating 
 		ON BelowCapacityRents.order_id = PropertyRating.order_id;
 
-INSERT INTO q2
-	(SELECT * FROM AtCapacityRatings)
-	UNION
-	(SELECT * FROM BelowCapacityRatings);
+--INSERT INTO q2
+(SELECT * FROM AtCapacityRatings)
+UNION
+(SELECT * FROM BelowCapacityRatings);

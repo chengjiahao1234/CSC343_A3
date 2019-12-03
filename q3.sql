@@ -1,12 +1,12 @@
 SET SEARCH_PATH TO vacationschema, PUBLIC;
-DROP TABLE IF EXISTS q3 CASCADE;
+--DROP TABLE IF EXISTS q3 CASCADE;
 
-CREATE TABLE q3(
-    host_id INTEGER,
-    email VARCHAR(30),
-    average_rating FLOAT,
-    most_expensive_price FLOAT
-);
+--CREATE TABLE q3(
+--    host_id INTEGER,
+--    email VARCHAR(30),
+--    average_rating FLOAT,
+--    most_expensive_price FLOAT
+--);
 
 DROP VIEW IF EXISTS HostToRatings CASCADE;
 DROP VIEW IF EXISTS HighestRatingHost CASCADE;
@@ -53,5 +53,5 @@ CREATE VIEW FinalResult AS
 		ON HighestRatingHost.host_id = ExpensiveBookingWeek.host_id;
 
 -- Your query that answers the question goes below the "insert into" line:
-INSERT INTO q3
-	(SELECT * FROM FinalResult);
+
+SELECT * FROM FinalResult;

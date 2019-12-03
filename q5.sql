@@ -2,15 +2,15 @@
 
 -- You must not change the next 2 lines or the table definition.
 SET SEARCH_PATH TO vacationschema, PUBLIC;
-DROP TABLE IF EXISTS q5 CASCADE;
+--DROP TABLE IF EXISTS q5 CASCADE;
 
-CREATE TABLE q5(
-    property_id INTEGER,
-    highest_price FLOAT,
-    lowest_price FlOAT,
-    range FLOAT,
-    is_highest_range VARCHAR(1)
-);
+--CREATE TABLE q5(
+--    property_id INTEGER,
+--    highest_price FLOAT,
+--    lowest_price FlOAT,
+--    range FLOAT,
+--    is_highest_range VARCHAR(1)
+--);
 
 -- Do this for each of the views that define your intermediate steps.  
 -- (But give them better names!) The IF EXISTS avoids generating an error 
@@ -56,6 +56,6 @@ END AS is_highest_range
 FROM HighestAndLowest, HighestRange;
 
 -- Your query that answers the question goes below the "insert into" line:
-INSERT INTO q5
-(SELECT * FROM Answer);
+--INSERT INTO q5
+SELECT * FROM Answer;
 

@@ -1,0 +1,159 @@
+-------------------- Loading schema and data: --------------------
+
+psql:schema.ddl:18: NOTICE:  drop cascades to 3 other objects
+DETAIL:  drop cascades to table hostinfo
+drop cascades to table guest
+drop cascades to type score
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE DOMAIN
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 3
+INSERT 0 6
+INSERT 0 1
+INSERT 0 1
+INSERT 0 6
+INSERT 0 6
+INSERT 0 5
+INSERT 0 12
+INSERT 0 9
+INSERT 0 5
+INSERT 0 3
+
+-------------------- Query 1: -----------------------------------
+
+SET
+psql:q1.sql:13: NOTICE:  view "numhottub" does not exist, skipping
+DROP VIEW
+psql:q1.sql:14: NOTICE:  view "numsauna" does not exist, skipping
+DROP VIEW
+psql:q1.sql:15: NOTICE:  view "numlaundry" does not exist, skipping
+DROP VIEW
+psql:q1.sql:16: NOTICE:  view "numcleaning" does not exist, skipping
+DROP VIEW
+psql:q1.sql:17: NOTICE:  view "numbreakfast" does not exist, skipping
+DROP VIEW
+psql:q1.sql:18: NOTICE:  view "numconcierge" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ hottub | sauna | concierge | dailybreakfast | laundry | dailycleaning 
+--------+-------+-----------+----------------+---------+---------------
+      4 |     2 |         2 |              1 |       2 |             3
+(1 row)
+
+
+-------------------- Query 2: -----------------------------------
+
+SET
+psql:q2.sql:10: NOTICE:  view "atcapacityrents" does not exist, skipping
+DROP VIEW
+psql:q2.sql:11: NOTICE:  view "atcapacityratings" does not exist, skipping
+DROP VIEW
+psql:q2.sql:12: NOTICE:  view "belowcapacityrents" does not exist, skipping
+DROP VIEW
+psql:q2.sql:13: NOTICE:  view "belowcapacityratings" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ capacity | numproperty |   averagerating    
+----------+-------------+--------------------
+ At       |           3 | 3.8333333333333333
+ Below    |           2 | 1.6666666666666667
+(2 rows)
+
+
+-------------------- Query 3: -----------------------------------
+
+SET
+psql:q3.sql:11: NOTICE:  view "hosttoratings" does not exist, skipping
+DROP VIEW
+psql:q3.sql:12: NOTICE:  view "highestratinghost" does not exist, skipping
+DROP VIEW
+psql:q3.sql:13: NOTICE:  view "expensivebookingweek" does not exist, skipping
+DROP VIEW
+psql:q3.sql:14: NOTICE:  view "finalresult" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ host_id |     email     |   averagerating    | price 
+---------+---------------+--------------------+-------
+     103 | han@gmail.com | 4.3333333333333333 |  1220
+(1 row)
+
+
+-------------------- Query 4: -----------------------------------
+
+SET
+psql:q4.sql:15: NOTICE:  view "bothcitywater" does not exist, skipping
+DROP VIEW
+psql:q4.sql:16: NOTICE:  view "cityp" does not exist, skipping
+DROP VIEW
+psql:q4.sql:17: NOTICE:  view "waterp" does not exist, skipping
+DROP VIEW
+psql:q4.sql:18: NOTICE:  view "nonetype" does not exist, skipping
+DROP VIEW
+psql:q4.sql:19: NOTICE:  view "bothanswer" does not exist, skipping
+DROP VIEW
+psql:q4.sql:20: NOTICE:  view "cityanswer" does not exist, skipping
+DROP VIEW
+psql:q4.sql:21: NOTICE:  view "wateranswer" does not exist, skipping
+DROP VIEW
+psql:q4.sql:22: NOTICE:  view "noneanswer" does not exist, skipping
+DROP VIEW
+psql:q4.sql:23: NOTICE:  view "answer" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+  type   | avg_of_guests 
+---------+---------------
+ Water   |             1
+ City    |             2
+ Both    |             0
+ Neither |           0.6
+(4 rows)
+
+
+-------------------- Query 5: -----------------------------------
+
+SET
+psql:q5.sql:18: NOTICE:  view "highestandlowest" does not exist, skipping
+DROP VIEW
+psql:q5.sql:19: NOTICE:  view "highestrange" does not exist, skipping
+DROP VIEW
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ property_id | highest | lowest | range | is_highest_range 
+-------------+---------+--------+-------+------------------
+           3 |     750 |    750 |     0 | 
+           5 |    1220 |   1000 |   220 | *
+           2 |     600 |    580 |    20 | 
+(3 rows)

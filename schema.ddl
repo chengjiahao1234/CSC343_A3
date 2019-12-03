@@ -1,12 +1,15 @@
 -- Q: What constraints from the domain could not be enforced,
 -- if any?
 -- A: The following three constraints from the domain could not 
--- be enforced: 1. The renter has to be at least 18 years old 
--- on the first day of the rental. 2. The person cannot be
--- registered for only parts of it. 3. The number of guests must
--- not exceed the sleeping capacity of the property. Since we 
--- can't use subquery inside the check block, we couldn't enforce 
--- this constraints without using assertions or triggers.
+-- be enforced: 
+-- 1. The renter has to be at least 18 years old on the first day 
+-- of the rental. 
+-- 2. The person cannot be registered for only parts of it. 
+-- 3. The number of guests must not exceed the sleeping capacity 
+-- of the property. 
+-- Since we can't use subquery inside the check block, we 
+-- couldn't enforce this constraints without using assertions 
+-- or triggers.
 --
 -- Q: What constraints that could have been enforced were not
 -- enforced, if any? Why not?
@@ -34,7 +37,15 @@ CREATE TABLE PropertyInfo (
     num_bath INTEGER NOT NULL,
     address VARCHAR(50) NOT NULL UNIQUE,
     capacity INTEGER NOT NULL,
-    CHECK (capacity >= num_bed)
+    hot_tub BOOLEAN NOT NULL,
+    sauna BOOLEAN NOT NULL,
+    laundry BOOLEAN NOT NULL,
+    daily_cleaning BOOLEAN NOT NULL,
+    daily_breakfast BOOLEAN NOT NULL,
+    concierge BOOLEAN NOT NULL,
+    CHECK (capacity >= num_bed),
+    CHECK (hot_tub OR sauna OR laundry OR daily_cleaning 
+	OR daily_breakfast OR concierge)
 );
 
 -- The information of all water properties. propertyType
@@ -60,13 +71,6 @@ CREATE TABLE CityProperty (
     CHECK (closest_transit IN ('bus', 'LRT', 'subway', 'none'))
 );
 
--- -- A row in this table indicates who is the owner of certain
--- -- property.
--- CREATE TABLE PropertyHost (
---   property_id INTEGER PRIMARY KEY REFERENCES PropertyInfo,
---   host_id INTEGER REFERENCES HostInfo NOT NULL  
--- );
-
 -- The price of a property of a certain week.
 CREATE TABLE Price (
     property_id INTEGER REFERENCES PropertyInfo,
@@ -74,20 +78,6 @@ CREATE TABLE Price (
     price FLOAT NOT NULL,
     PRIMARY KEY (property_id, week),
     CHECK (EXTRACT(DOW FROM week) = 6)
-);
-
--- A row in this table indicates whether or not a luxury
--- services is provided by a certain property.
-CREATE TABLE Services (
-    property_id INTEGER PRIMARY KEY REFERENCES PropertyInfo,
-    hot_tub BOOLEAN NOT NULL,
-    sauna BOOLEAN NOT NULL,
-    laundry BOOLEAN NOT NULL,
-    daily_cleaning BOOLEAN NOT NULL,
-    daily_breakfast BOOLEAN NOT NULL,
-    concierge BOOLEAN NOT NULL,
-    CHECK (hot_tub OR sauna OR laundry OR daily_cleaning 
-	OR daily_breakfast OR concierge)
 );
 
 -- A person who is registered as a guest of the this 
@@ -108,15 +98,7 @@ CREATE TABLE Guest (
 CREATE TABLE PropertyOrder (
     order_id INTEGER PRIMARY KEY,
     guest_id INTEGER NOT NULL REFERENCES Guest,
-    --check guest_id IN
-    --(select guest_id
-    --from Guest),
-    --where date_part('year', age(start_day, birthday)) >= 18)),
     property_id INTEGER NOT NULL REFERENCES PropertyInfo,
-    --check (property_id IN
-    --(select PropertyInfo.property_id
-    --from PropertyInfo
-    --where capacity >= num_of_renters)),
     start_day DATE NOT NULL,
     num_of_weeks INTEGER NOT NULL,
     num_of_guests INTEGER NOT NULL,
@@ -124,12 +106,6 @@ CREATE TABLE PropertyOrder (
     CHECK (num_of_weeks >= 1),
     CHECK (num_of_guests >= 0),
     CHECK (EXTRACT(DOW FROM start_day) = 6)
-    --check (guest_id NOT IN
-    --(select RentInfo.guest_id
-    --from PropertyOrder P1 join RentInfo
-    --where P1.order_id = RentInfo.order_id
-    --    and P1.start_day = start_day
-    --    and P1.order_id != order_id)),
 ) ;
 
 -- A row in this table indicates the guest who rent the 
@@ -160,10 +136,8 @@ CREATE TABLE PropertyRating (
 -- The renter who rent the property associated with this PropertyOrder
 -- gave the rating to the property's host.
 CREATE TABLE HostRating (
-    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
-    guest_id INTEGER NOT NULL,
-    rating score NOT NULL,
-    PRIMARY KEY (order_id, guest_id)
+    order_id INTEGER NOT NULL PRIMARY KEY REFERENCES PropertyOrder,
+    rating score NOT NULL
 ) ;
 
 -- The guest who gave the rating to the property associated 

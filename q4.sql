@@ -75,7 +75,7 @@ CREATE VIEW CityAnswer AS
 SELECT 'City' AS type, 
 CASE WHEN count(C.property_id) = 0
 THEN 0
-ELSE CAST (sum(num_of_guests) AS FLOAT)/count(C.property_id) 
+ELSE CAST (sum(num_of_guests) AS FLOAT)/count(O.property_id) 
 END AS avg_of_guests
 FROM CityP C LEFT JOIN PropertyOrder O ON C.property_id = O.property_id;
 
@@ -84,19 +84,18 @@ CREATE VIEW WaterAnswer AS
 SELECT 'Water' AS type, 
 CASE WHEN count(W.property_id) = 0
 THEN 0
-ELSE CAST (sum(num_of_guests) AS FLOAT)/count(W.property_id) 
+ELSE CAST (sum(num_of_guests) AS FLOAT)/count(O.property_id) 
 END AS avg_of_guests
 FROM WaterP W LEFT JOIN PropertyOrder O ON W.property_id = O.property_id;
-
 -- The average number of extra guests for properties of other type.
 CREATE VIEW OtherAnswer AS
 SELECT 'Other' AS type, 
 CASE WHEN count(N.property_id) = 0
 THEN 0
-ELSE CAST (sum(num_of_guests) AS FLOAT)/count(N.property_id) 
+ELSE CAST (sum(num_of_guests) AS FLOAT)/count(O.property_id) 
 END AS avg_of_guests
 --sum(num_of_guests) AS total,
---count(N.property_id) AS num_of_property
+--count(O.property_id) AS num_of_property
 FROM OtherType N LEFT JOIN PropertyOrder O ON N.property_id = O.property_id;
 
 -- The average number of extra guests for each type.

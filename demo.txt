@@ -110,15 +110,13 @@ psql:q4.sql:16: NOTICE:  view "cityp" does not exist, skipping
 DROP VIEW
 psql:q4.sql:17: NOTICE:  view "waterp" does not exist, skipping
 DROP VIEW
-psql:q4.sql:18: NOTICE:  view "nonetype" does not exist, skipping
-DROP VIEW
-psql:q4.sql:19: NOTICE:  view "bothanswer" does not exist, skipping
+psql:q4.sql:18: NOTICE:  view "othertype" does not exist, skipping
 DROP VIEW
 psql:q4.sql:20: NOTICE:  view "cityanswer" does not exist, skipping
 DROP VIEW
 psql:q4.sql:21: NOTICE:  view "wateranswer" does not exist, skipping
 DROP VIEW
-psql:q4.sql:22: NOTICE:  view "noneanswer" does not exist, skipping
+psql:q4.sql:22: NOTICE:  view "otheranswer" does not exist, skipping
 DROP VIEW
 psql:q4.sql:23: NOTICE:  view "answer" does not exist, skipping
 DROP VIEW
@@ -130,14 +128,12 @@ CREATE VIEW
 CREATE VIEW
 CREATE VIEW
 CREATE VIEW
-CREATE VIEW
-  type   | avg_of_guests 
----------+---------------
- Water   |             1
- City    |             2
- Both    |             0
- Neither |           0.6
-(4 rows)
+ type  | avg_of_guests 
+-------+---------------
+ Other |           1.5
+ Water |             1
+ City  |             2
+(3 rows)
 
 
 -------------------- Query 5: -----------------------------------

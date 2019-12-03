@@ -54,7 +54,7 @@ CREATE TABLE PropertyInfo (
 -- indicates whether lifeguards has ever been offered.
 CREATE TABLE WaterProperty (
     property_id INTEGER REFERENCES PropertyInfo,
-    property_type VARCHAR(10) NOT NULL,
+    property_type VARCHAR(10),
     lifeguarding BOOLEAN NOT NULL,
     PRIMARY KEY (property_id, property_type),
     CHECK (property_type IN ('beach', 'lake', 'pool'))
@@ -74,7 +74,7 @@ CREATE TABLE CityProperty (
 -- The price of a property of a certain week.
 CREATE TABLE Price (
     property_id INTEGER REFERENCES PropertyInfo,
-    week DATE NOT NULL,
+    week DATE,
     price FLOAT NOT NULL,
     PRIMARY KEY (property_id, week),
     CHECK (EXTRACT(DOW FROM week) = 6)
@@ -111,8 +111,8 @@ CREATE TABLE PropertyOrder (
 -- A row in this table indicates the guest who rent the 
 -- property in this PropertyOrder.
 CREATE TABLE RentInfo (
-    order_id INTEGER NOT NULL REFERENCES PropertyOrder,
-    guest_id INTEGER NOT NULL REFERENCES Guest,
+    order_id INTEGER REFERENCES PropertyOrder,
+    guest_id INTEGER REFERENCES Guest,
     PRIMARY KEY (order_id, guest_id)
 ) ;
 
@@ -126,8 +126,8 @@ CREATE DOMAIN score AS SMALLINT
 -- The guest who rent the property associated with this PropertyOrder
 -- gave the rating to the property.
 CREATE TABLE PropertyRating (
-    order_id INTEGER NOT NULL,
-    guest_id INTEGER NOT NULL,
+    order_id INTEGER,
+    guest_id INTEGER,
     rating score NOT NULL,
     PRIMARY KEY (order_id, guest_id),
     Foreign KEY (order_id, guest_id) REFERENCES RentInfo
@@ -136,15 +136,15 @@ CREATE TABLE PropertyRating (
 -- The renter who rent the property associated with this PropertyOrder
 -- gave the rating to the property's host.
 CREATE TABLE HostRating (
-    order_id INTEGER NOT NULL PRIMARY KEY REFERENCES PropertyOrder,
+    order_id INTEGER PRIMARY KEY REFERENCES PropertyOrder,
     rating score NOT NULL
 ) ;
 
 -- The guest who gave the rating to the property associated 
 -- with this PropertyOrder gave the comment to the property.
 CREATE TABLE Comments (
-    order_id INTEGER NOT NULL,
-    guest_id INTEGER NOT NULL,
+    order_id INTEGER,
+    guest_id INTEGER,
     comments VARCHAR(200) NOT NULL,
     PRIMARY KEY (order_id, guest_id),
     Foreign KEY (order_id, guest_id) REFERENCES PropertyRating

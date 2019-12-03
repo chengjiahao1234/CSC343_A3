@@ -15,11 +15,11 @@ SET SEARCH_PATH TO vacationschema, PUBLIC;
 DROP VIEW IF EXISTS BothCityWater CASCADE;
 DROP VIEW IF EXISTS CityP CASCADE;
 DROP VIEW IF EXISTS WaterP CASCADE;
-DROP VIEW IF EXISTS NoneType CASCADE;
-DROP VIEW IF EXISTS BothAnswer CASCADE;
+DROP VIEW IF EXISTS OtherType CASCADE;
+--DROP VIEW IF EXISTS BothAnswer CASCADE;
 DROP VIEW IF EXISTS CityAnswer CASCADE;
 DROP VIEW IF EXISTS WaterAnswer CASCADE;
-DROP VIEW IF EXISTS NoneAnswer CASCADE;
+DROP VIEW IF EXISTS OtherAnswer CASCADE;
 DROP VIEW IF EXISTS Answer CASCADE;
 
 
@@ -48,12 +48,12 @@ WHERE P.property_id NOT IN
 FROM BothCityWater);
 
 -- The property_id of every property which is neither city nor water.
-CREATE VIEW NoneType AS
+CREATE VIEW OtherType AS
 (SELECT P.property_id
 FROM PropertyInfo P)
-EXCEPT
-(SELECT property_id
-FROM BothCityWater)
+--EXCEPT
+--(SELECT property_id
+--FROM BothCityWater)
 EXCEPT
 (SELECT property_id
 FROM CityP)
@@ -62,13 +62,13 @@ EXCEPT
 FROM WaterP);
 
 -- The average number of extra guests for properties of city & water type.
-CREATE VIEW BothAnswer AS
-SELECT 'Both' AS type, 
-CASE WHEN count(B.property_id) = 0
-THEN 0
-ELSE CAST (sum(num_of_guests) AS FLOAT)/count(B.property_id) 
-END AS avg_of_guests
-FROM BothCityWater B LEFT JOIN PropertyOrder O ON B.property_id = O.property_id;
+--CREATE VIEW BothAnswer AS
+--SELECT 'Both' AS type, 
+--CASE WHEN count(B.property_id) = 0
+--THEN 0
+--ELSE CAST (sum(num_of_guests) AS FLOAT)/count(B.property_id) 
+--END AS avg_of_guests
+--FROM BothCityWater B LEFT JOIN PropertyOrder O ON B.property_id = O.property_id;
 
 -- The average number of extra guests for properties of city type.
 CREATE VIEW CityAnswer AS
@@ -88,26 +88,26 @@ ELSE CAST (sum(num_of_guests) AS FLOAT)/count(W.property_id)
 END AS avg_of_guests
 FROM WaterP W LEFT JOIN PropertyOrder O ON W.property_id = O.property_id;
 
--- The average number of extra guests for properties of none type.
-CREATE VIEW NoneAnswer AS
-SELECT 'Neither' AS type, 
+-- The average number of extra guests for properties of other type.
+CREATE VIEW OtherAnswer AS
+SELECT 'Other' AS type, 
 CASE WHEN count(N.property_id) = 0
 THEN 0
 ELSE CAST (sum(num_of_guests) AS FLOAT)/count(N.property_id) 
 END AS avg_of_guests
 --sum(num_of_guests) AS total,
 --count(N.property_id) AS num_of_property
-FROM NoneType N LEFT JOIN PropertyOrder O ON N.property_id = O.property_id;
+FROM OtherType N LEFT JOIN PropertyOrder O ON N.property_id = O.property_id;
 
 -- The average number of extra guests for each type.
 CREATE VIEW Answer AS
-(SELECT * FROM BothAnswer)
-UNION
+--(SELECT * FROM BothAnswer)
+--UNION
 (SELECT * FROM CityAnswer)
 UNION
 (SELECT * FROM WaterAnswer)
 UNION
-(SELECT * FROM NoneAnswer);
+(SELECT * FROM OtherAnswer);
 
 
 -- Your query that answers the question goes below the "insert into" line:

@@ -5,6 +5,6 @@ Please see the details about the assignment in A3.pdf
 ----
 ## Contributor
 ### Authors:
-* University of Toronto 2018W CSC148 Teaching Team
+* University of Toronto 2019F CSC343 Teaching Team
 * Jiahao Cheng
 * Zhiyuan Yang
